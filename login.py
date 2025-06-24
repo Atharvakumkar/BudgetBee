@@ -30,12 +30,14 @@ logo.place(x=50, y=240)
 descrp = ctk.CTkLabel(main_frame, text="Manage your money, smartly.", font=my_font_subheading, text_color="#06923E")
 descrp.place(x=50, y=310)
 
-# Shadow Effect (Fake)
-shadow = ctk.CTkFrame(main_frame, width=410, height=410, corner_radius=25, fg_color="#c8e5c8")
+# Shadow Effect
+shadow = ctk.CTkFrame(main_frame, width=410, height=410, corner_radius=25, fg_color="#b8dbb8")
 shadow.place(x=604, y=154)
 
-# Login Box
-login_box = ctk.CTkFrame(main_frame, width=400, height=400, corner_radius=20, fg_color="white")
+# Glass Login Box
+login_box = ctk.CTkFrame(main_frame, width=400, height=400, corner_radius=25,
+                         fg_color="#ffffff", bg_color="#ffffff",
+                         border_color="#06923E", border_width=1)
 login_box.place(x=600, y=150)
 
 # Header strip
@@ -81,7 +83,6 @@ signup_btn = ctk.CTkButton(login_box, text="Sign Up →", font=my_font_button, h
                             text_color="#06923E", fg_color="white", hover_color="#eeeeee", command=open_signup)
 signup_btn.place(x=230, y=285)
 
-# Bring window on top briefly
 login.lift()
 login.attributes("-topmost", True)
 login.after(500, lambda: login.attributes("-topmost", False))
