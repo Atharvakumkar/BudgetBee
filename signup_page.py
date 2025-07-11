@@ -86,7 +86,7 @@ def validate_and_go():
 
     if name == "":
         messagebox.showerror("Error", "Full Name cannot be empty.")
-    elif "@" not in email or "." not in email:
+    elif "@" not in email or "." or ".com" not in email:
         messagebox.showerror("Error", "Enter a valid email address.")
     elif len(password) < 6:
         messagebox.showerror("Error", "Password must be at least 6 characters.")
