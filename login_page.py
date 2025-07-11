@@ -1,8 +1,27 @@
 from tkinter import *
+from tkinter import messagebox
+
 import customtkinter as ctk
-import tkinter.font as ctkfont 
+import tkinter.font as ctkfont
+from pymongo import MongoClient
+
+uri = "mongodb://localhost:27017"
+client = MongoClient(uri)
+db = client.budgetBee
+signup_collection = db.SignUpDetails
 
 ctk.set_appearance_mode("dark")
+
+def checkLogin():
+    userName = entry_email.get()
+    userPass = password_email.get()
+
+    detailsCheck = db.SignUpDetails.find_one({"email": userName},{"password": userPass})
+
+    if detailsCheck:
+        messagebox.showinfo("login", "Login successful!")
+    else:
+        messagebox.showerror("Err", "Invalid details")
 
 top = ctk.CTk()
 top.title("Login Page")
@@ -41,6 +60,12 @@ sign_in_box = ctk.CTkFrame(top,
                            border_color="#cccccc",)
 sign_in_box.place(x = 600, y = 150)
 
+shadow = ctk.CTkFrame(master=top_main_frame,
+                      width=400,
+                      height=400,
+                      fg_color="#b8dbb8")
+shadow.place(x=610, y=165)
+
 label_1 = ctk.CTkLabel(master = sign_in_box, 
                        text = "Sign in",
                        font=my_font_label1,
@@ -72,19 +97,22 @@ line.place(x = 20, y = 120)
 
 entry_email = ctk.CTkEntry(master = sign_in_box,
                            font = my_font_label2,
-                           placeholder_text = "Email",
+                           placeholder_text = "📧 Email",
                            width = 350,
                            height = 40,
                            fg_color = "white",
+                           text_color = "#06923E",
                            border_color = "#06923E")
 entry_email.place(x = 20, y = 150)
 
 password_email = ctk.CTkEntry(master = sign_in_box,
                            font = my_font_label2,
-                           placeholder_text = "Password",
+                           placeholder_text = "🔒 Password",
                            width = 350,
                            height = 40,
                            fg_color = "white",
+                           text_color = "#06923E",
+                           show = ".",
                            border_color = "#06923E")
 password_email.place(x = 20, y = 205)
 
@@ -96,7 +124,7 @@ login_button = ctk.CTkButton(master = sign_in_box,
                              text_color = "#D3ECCD",
                              fg_color = "#06923E",
                              hover_color = "#045B27",
-                             command = "")
+                             command = checkLogin)
 login_button.place(x = 20,y = 275)
 
 
